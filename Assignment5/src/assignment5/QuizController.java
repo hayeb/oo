@@ -25,6 +25,9 @@ public class QuizController implements GameController {
 		this.model = model;
 	}
 
+	/**
+	 * Sets the controller up for usage.
+	 */
 	public void setup() {
 		model.createQuestions();
 	}
@@ -47,14 +50,13 @@ public class QuizController implements GameController {
 					observer.congratulate();
 					if (model.isInRound2(q)) {
 						model.addPointsRound2(q.getWeight());
-						model.removeWrongQuestion() ;
-					}
-					else {
+						model.removeWrongQuestion();
+					} else {
 						model.addPointsRound1(q.getWeight());
-					}					
+					}
 				} else {
 					if (model.isInRound2(q)) {
-						model.removeWrongQuestion() ;
+						model.removeWrongQuestion();
 					}
 					observer.punish();
 					observer.showCorrectAnswer(q.isRight());
@@ -62,7 +64,8 @@ public class QuizController implements GameController {
 				}
 
 			} else { // There are no more questions left
-				observer.showEnd(model.getPointsRound1(), model.getPointsRound2());
+				observer.showEnd(model.getPointsRound1(),
+						model.getPointsRound2());
 			}
 		} while (q != null);
 

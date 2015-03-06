@@ -2,6 +2,13 @@ package assignment5;
 
 import java.util.Random;
 
+/**
+ * Represents a multiplechoice question.
+ * 
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
+ *
+ */
 public class MultipleChoiceQuestion extends Question {
 	private String[] answers;
 	private int answer_multiple; // index in array answers
@@ -38,16 +45,23 @@ public class MultipleChoiceQuestion extends Question {
 		this.answers = answers;
 	}
 
+	/**
+	 * Returns a string representation of the question and all the answers.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Question: " + question + "\n");
 		for (int i = 0; i < answers.length; i++) {
-			sb.append("[" + (i+1) + "] " + answers[i] + "\n");
+			sb.append("[" + (i + 1) + "] " + answers[i] + "\n");
 		}
 		return sb.toString();
 	}
-	
+
+	/**
+	 * Returns a copy of this object, with the questions shifted according to a
+	 * random number
+	 */
 	public Question duplicate() {
 		Random random = new Random();
 		int shift = random.nextInt(answers.length);
@@ -58,10 +72,13 @@ public class MultipleChoiceQuestion extends Question {
 			int new_index = (i + shift) % (answers.length);
 			list[new_index] = answers[i];
 		}
-		return new MultipleChoiceQuestion(question, list,
-				answer_shifted + 1, weight);
+		return new MultipleChoiceQuestion(question, list, answer_shifted + 1,
+				weight);
 	}
-	
+
+	/**
+	 * Returns if the String antwoord is the correct answer.
+	 */
 	@Override
 	public boolean isCorrect(String antwoord) {
 		if (antwoord.equalsIgnoreCase(Integer.toString(answer_multiple + 1))) {
@@ -69,7 +86,10 @@ public class MultipleChoiceQuestion extends Question {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Returns a string representation of the correct answer.
+	 */
 	@Override
 	public String isRight() {
 		return "The answer is: " + (answer_multiple + 1) + "\n";

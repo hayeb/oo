@@ -9,7 +9,7 @@ public class QuizGame {
 	private QuizView quizobserver;
 	private QuizModel quizmodel;
 	private GameController quizcontroller;
-	
+
 	/**
 	 * Empty constructor for QuizGame
 	 */
@@ -23,13 +23,16 @@ public class QuizGame {
 	public void setup() {
 		quizobserver = new QuizObserver();
 		quizmodel = new Quiz();
-		quizcontroller = new QuizController() ;
+		quizcontroller = new QuizController();
 		quizcontroller.register(quizobserver, quizmodel);
 		quizcontroller.setup();
 	}
-	
+
+	/**
+	 * Runs the game!
+	 */
 	public void run() {
-		quizcontroller.run() ;
+		quizcontroller.run();
 	}
 
 }

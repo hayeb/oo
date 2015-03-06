@@ -1,5 +1,12 @@
 package assignment5;
 
+/**
+ * A view class for usage in a Quiz game.
+ * 
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
+ *
+ */
 public class QuizObserver implements QuizView {
 
 	/**
@@ -7,7 +14,7 @@ public class QuizObserver implements QuizView {
 	 */
 	@Override
 	public void showQuestion(Question q) {
-		
+
 		System.out.print(q);
 	}
 
@@ -23,12 +30,16 @@ public class QuizObserver implements QuizView {
 
 	@Override
 	public void showCorrectAnswer(String s) {
-		System.out.println(s);		
+		System.out.println(s);
 	}
-	
+
+	/**
+	 * Shows ending message and number of points scored.
+	 */
 	@Override
 	public void showEnd(int round1, int round2) {
 		System.out.println("There are no more questions!");
-		System.out.print("Your points are:\nRound 1: " + round1 +"\nRound 2: " + round2 + "\n");
+		System.out.print("Your points are:\nRound 1: " + round1 + "\nRound 2: "
+				+ round2 + "\n");
 	}
 }
