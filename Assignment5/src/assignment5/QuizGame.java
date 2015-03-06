@@ -8,7 +8,7 @@ package assignment5;
 public class QuizGame {
 	private QuizView quizobserver;
 	private QuizModel quizmodel;
-	private QuizController quizcontroller;
+	private GameController quizcontroller;
 	
 	/**
 	 * Empty constructor for QuizGame

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MultipleChoiceQuestion extends Question {
 	private String[] answers;
-	private int answer_multiple;
+	private int answer_multiple; // index in array answers
 
 	/**
 	 * Constructor to initialize a multiplechoice question with a predefined
@@ -19,7 +19,7 @@ public class MultipleChoiceQuestion extends Question {
 			int correct, int weight) {
 		super(weight);
 		this.question = question;
-		this.answer_multiple = correct;
+		this.answer_multiple = correct - 1;
 		this.answers = answers;
 	}
 
@@ -34,7 +34,7 @@ public class MultipleChoiceQuestion extends Question {
 	public MultipleChoiceQuestion(String question, String[] answers, int correct) {
 		super();
 		this.question = question;
-		this.answer_multiple = correct;
+		this.answer_multiple = correct - 1;
 		this.answers = answers;
 	}
 
@@ -55,15 +55,16 @@ public class MultipleChoiceQuestion extends Question {
 		int answer_shifted = (answer_multiple + shift) % answers.length;
 		System.out.println(answer_shifted);
 		for (int i = 0; i < answers.length; i++) {
-			list[i] = answers[(i + shift) % (answers.length)];
+			int new_index = (i + shift) % (answers.length);
+			list[new_index] = answers[i];
 		}
 		return new MultipleChoiceQuestion(question, list,
-				answer_shifted, weight);
+				answer_shifted + 1, weight);
 	}
 	
 	@Override
 	public boolean isCorrect(String antwoord) {
-		if (antwoord.equalsIgnoreCase(Integer.toString(answer_multiple))) {
+		if (antwoord.equalsIgnoreCase(Integer.toString(answer_multiple + 1))) {
 			return true;
 		}
 		return false;
@@ -71,6 +72,6 @@ public class MultipleChoiceQuestion extends Question {
 	
 	@Override
 	public String isRight() {
-		return "The answer is: " + answer_multiple + "\n";
+		return "The answer is: " + (answer_multiple + 1) + "\n";
 	}
 }

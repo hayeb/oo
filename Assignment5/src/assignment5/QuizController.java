@@ -41,20 +41,29 @@ public class QuizController implements GameController {
 		do {
 			q = model.getNextQuestion();
 			if (q != null) {
-				observer.update(q);
+				observer.showQuestion(q);
 				String input = in.nextLine();
 				if (q.isCorrect(input)) {
 					observer.congratulate();
+					if (model.isInRound2(q)) {
+						model.addPointsRound2(q.getWeight());
+						model.removeWrongQuestion() ;
+					}
+					else {
+						model.addPointsRound1(q.getWeight());
+					}					
 				} else {
+					if (model.isInRound2(q)) {
+						model.removeWrongQuestion() ;
+					}
 					observer.punish();
 					observer.showCorrectAnswer(q.isRight());
 					model.addWrongList(q.duplicate());
 				}
 
 			} else { // There are no more questions left
-				observer.showEnd();
+				observer.showEnd(model.getPointsRound1(), model.getPointsRound2());
 			}
-
 		} while (q != null);
 
 	}

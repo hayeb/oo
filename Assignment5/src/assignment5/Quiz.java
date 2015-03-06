@@ -12,8 +12,8 @@ import java.util.List;
 public class Quiz implements QuizModel {
 	private List<Question> questions;
 	private List<Question> wrongquestions;
-	private QuizObserver view;
-	private int nextquestion;
+	private int points_round1;
+	private int points_round2;
 
 	private void createOpenQuestions() {
 		questions.add(new OpenQuestion(
@@ -21,18 +21,10 @@ public class Quiz implements QuizModel {
 		questions.add(new OpenQuestion(
 				"Hoe lees je in Java een integer i uit een scanner s?",
 				"i = s.nextInt();", 2));
-		questions.add(new OpenQuestion(
-				"Is er verschil tussen een interface en een abstracte klasse?",
-				"Ja", 5));
 		questions
 				.add(new OpenQuestion(
 						"Hoeveel constructoren je minstens maken bij een klasse in Java?",
 						"0", 2));
-		questions
-				.add(new OpenQuestion(
-						"Is er een maximum aantal constructoren van een klasse in Java?",
-						"Nee"));
-
 	}
 
 	private void createMultipleChoiceQuestions() {
@@ -54,6 +46,17 @@ public class Quiz implements QuizModel {
 						"s.nextString()" }, 7, 1));
 	}
 
+	public void createTwoAnswerQuestions() {
+		questions.add(new TwoAnswerQuestion(
+				"Is er verschil tussen een interface en een abstracte klasse?",
+				new String[] {"Nee", "Ja"}, "Ja", 5));
+
+		questions
+				.add(new TwoAnswerQuestion(
+						"Is er een maximum aantal constructoren van een klasse in Java?",
+						new String[] {"Nee", "Ja"}, "Nee"));
+	}
+
 	public Quiz() {
 		questions = new LinkedList<Question>();
 		wrongquestions = new LinkedList<Question>();
@@ -62,6 +65,7 @@ public class Quiz implements QuizModel {
 	public void createQuestions() {
 		createOpenQuestions();
 		createMultipleChoiceQuestions();
+		createTwoAnswerQuestions();
 	}
 
 	public void addWrongList(Question q) {
@@ -75,9 +79,45 @@ public class Quiz implements QuizModel {
 		if (questions.size() > 0) {
 			return questions.remove(0);
 		} else if (wrongquestions.size() > 0) {
-			return wrongquestions.remove(0);
+			return wrongquestions.get(0);
 		} else {
 			return null;
 		}
 	}
+
+	public boolean isInRound2(Question q) {
+		for (Question que : wrongquestions) {
+			if (que.equals(q)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public void removeWrongQuestion() {
+		wrongquestions.remove(0);
+	}
+	
+	@Override
+	public void addPointsRound1(int weight) {
+		this.points_round1 += weight ;		
+	}
+	
+	@Override
+	public void addPointsRound2(int weight) {
+		this.points_round2 += weight ;		
+	}
+	
+	@Override
+	public int getPointsRound1() {
+		return this.points_round1;
+	}
+	
+	@Override
+	public int getPointsRound2() {
+		return this.points_round2;
+	}
+	
+	
 }

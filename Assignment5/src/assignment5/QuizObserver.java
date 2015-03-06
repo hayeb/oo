@@ -2,20 +2,11 @@ package assignment5;
 
 public class QuizObserver implements QuizView {
 
-	public QuizObserver() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void updateView() {
-		// TODO Auto-generated method stub
-		
-	}
 	/**
 	 * Prints out the question q.
 	 */
 	@Override
-	public void update(Question q) {
+	public void showQuestion(Question q) {
 		
 		System.out.print(q);
 	}
@@ -36,7 +27,8 @@ public class QuizObserver implements QuizView {
 	}
 	
 	@Override
-	public void showEnd() {
+	public void showEnd(int round1, int round2) {
 		System.out.println("There are no more questions!");
+		System.out.print("Your points are:\nRound 1: " + round1 +"\nRound 2: " + round2 + "\n");
 	}
 }
