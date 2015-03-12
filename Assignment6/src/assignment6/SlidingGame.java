@@ -1,5 +1,6 @@
 package assignment6;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,6 +17,10 @@ public class SlidingGame implements Configuration {
 	 */
 	private int[][] board;
 	private int holeX, holeY;
+	private int manhattandistance;
+
+	private Direction[] directions = { Direction.NORTH, Direction.SOUTH,
+			Direction.EAST, Direction.WEST };
 
 	/*
 	 * A constructor that initializes the board with the specified array
@@ -85,22 +90,102 @@ public class SlidingGame implements Configuration {
 	 */
 	@Override
 	public boolean isSolution() {
-
+		int teller = 1;
+		for (int row = 0; row < N; row++) {
+			for (int col = 0; col < N; col++) {
+				if (board[col][row] == teller) {
+					teller++;
+				} else if (col == N - 1 && row == N - 1
+						&& board[col][row] == HOLE) {
+					return true;
+				} else
+					return false;
+			}
+		}
 		return true;
-		// throw new
-		// UnsupportedOperationException("isGoal : not supported yet.");
+
 	}
 
 	@Override
 	public Collection<Configuration> successors() {
-		throw new UnsupportedOperationException(
-				"successors : not supported yet.");
+		ArrayList<Configuration> successors = new ArrayList<Configuration>();
+		for (Direction d : directions) {
+			int dx = d.GetDX();
+			int dy = d.GetDY();
+			if (isLegal(dx, dy)) {
+				int temp = board[holeX + dx][holeY + dy];
+				int[][] newboard = copyArray(board);
+				newboard[holeX][holeY] = temp;
+				newboard[holeX + dx][holeY + dy] = HOLE;
+
+				successors.add(new SlidingGame(flatten(newboard)));
+			}
+		}
+		return successors;
+	}
+
+	/**
+	 * Returns if the position of the hole is legal after a certain slide.
+	 * 
+	 * @param dx
+	 * @param dy
+	 * @return true if the position is legal.
+	 */
+	private boolean isLegal(int dx, int dy) {
+		if (holeX + dx > N - 1 || holeX + dx < 0 || holeY + dy > N - 1
+				|| holeY + dy < 0) {
+			return false;
+		}
+		return true;
+	}
+
+	private int[][] copyArray(int[][] array) {
+		int[][] new_array = new int[array.length][array[0].length];
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array.length; j++) {
+				new_array[i][j] = array[i][j];
+			}
+		}
+		return new_array;
+
+	}
+
+	private int[] flatten(int[][] array) {
+		int[] new_array = new int[array.length * array.length];
+		for (int i = 0; i < array.length * array.length; i++) {
+			new_array[i] = array[i % N][i / N];
+		}
+		return new_array;
+	}
+	
+	public void calcManhattan() {
+		for (int i =0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++){
+				int value = board[i][j];
+				manhattandistance += ((N % value) - i) + (N / value - j);
+			}
+		}
 	}
 
 	@Override
 	public int compareTo(Configuration g) {
-		throw new UnsupportedOperationException(
-				"compareTo : not supported yet.");
+		return getManhattanDistance() + g.getManhattanDistance();
+	}
+
+	@Override
+	public int hashCode() {
+		int value = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				value += board[i][j] * ((int) Math.pow(31, i + j*N));
+			}
+		}
+
+		return value;
+	}
+	
+	public int getManhattanDistance() {
+		return manhattandistance;
 	}
 
 }

@@ -6,7 +6,7 @@ package assignment6;
  * @version 1.2
  * @date 28-02-2015
  */
-public class Node<T>
+public class Node<T> implements Comparable<T>
 {
     // the data field
     private T item;
@@ -54,6 +54,16 @@ public class Node<T>
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("toString : not supported yet.");        
+        if (previous == null) {
+        	return length()  + ":\n" + item.toString();
+        } else {
+        	return previous.toString() +"\n" + length()  + ":\n" + item.toString();
+        }      
     }
+
+	@Override
+	public int compareTo(T o) {
+		// TODO Auto-generated method stub
+		return ((Comparable<T>) o).compareTo((item));
+	}
 }

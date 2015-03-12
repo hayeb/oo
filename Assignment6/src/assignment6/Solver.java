@@ -1,39 +1,53 @@
 package assignment6;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
-
 /**
- * A class that implements a breadth-first search algorithm
- * for finding the Configurations for which the isSolution predicate holds
+ * A class that implements a breadth-first search algorithm for finding the
+ * Configurations for which the isSolution predicate holds
+ * 
  * @author Pieter Koopman, Sjaak Smetsers
  * @version 1.3
  * @date 28-02-2013
  */
-public class Solver
-{
-    // A queue for maintaining graphs that are not visited yet.
-    Queue<Configuration> toExamine;
+public class Solver {
+	// A queue for maintaining graphs that are not visited yet.
+	private Queue<Node<Configuration>> toExamine;
+	private Collection<Configuration> visited;
+	
+	public Solver(Configuration g) {
+		toExamine = new PriorityQueue<Node<Configuration>>();
+		toExamine.add(new Node<Configuration>(null, g));
+		visited = new HashSet<Configuration>();
+		visited.add(g);
+	}
 
-    public Solver(Configuration g) {
-        throw new UnsupportedOperationException("Solver: not supported yet.");        
-    }
-    
-    /* A skeleton implementation of the solver
-     * @return a string representation of the solution
-     */
-    public String solve () {
-        while (! toExamine.isEmpty() ) {
-            Configuration next = toExamine.remove();
-            if ( next.isSolution() ) {
-                return "Success!";
-            } else {
-                for ( Configuration succ: next.successors() ) {
-                    toExamine.add  (succ);
-                }
-            }
-        }
-        return "Failure!";
-    }
-    
+	/*
+	 * A skeleton implementation of the solver
+	 * 
+	 * @return a string representation of the solution
+	 */
+	public String solve() {
+		while (!toExamine.isEmpty()) {
+			Node<Configuration> next = toExamine.poll();
+			Configuration current = (Configuration) next.getItem();
+			if (current.isSolution()) {
+				System.out.print(next);
+				return "Success!";
+			} else {
+				for (Configuration succ : current.successors()) {
+					if (!visited.contains(succ)) {
+						//System.out.println("Node added!");
+						succ.calcManhattan();
+						visited.add(succ);
+						toExamine.add(new Node<Configuration>(next, succ));
+					}
+				}
+			}
+		}
+		return "Failure!";
+	}
 }
