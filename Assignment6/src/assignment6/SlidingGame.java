@@ -8,6 +8,8 @@ import java.util.Collection;
  * @version 1.2
  * @date 28-02-2015 A template implementation of a sliding game also
  *       implementing the Graph interface
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
  */
 public class SlidingGame implements Configuration {
 	public static final int N = 3, SIZE = N * N, HOLE = SIZE;
@@ -40,6 +42,8 @@ public class SlidingGame implements Configuration {
 				holeY = p / N;
 			}
 		}
+		calcManhattan();
+
 	}
 
 	/*
@@ -85,7 +89,7 @@ public class SlidingGame implements Configuration {
 	}
 
 	/**
-	 * A configuration is a solution if:
+	 * Returns if a configuration is a solution.
 	 * 
 	 */
 	@Override
@@ -106,6 +110,9 @@ public class SlidingGame implements Configuration {
 
 	}
 
+	/**
+	 * Returns a list of legal successors of the current board layout.
+	 */
 	@Override
 	public Collection<Configuration> successors() {
 		ArrayList<Configuration> successors = new ArrayList<Configuration>();
@@ -139,6 +146,13 @@ public class SlidingGame implements Configuration {
 		return true;
 	}
 
+	/**
+	 * Copies the contents of array into a new array and returns the new array.
+	 * 
+	 * @param array
+	 *            The array to copy.
+	 * @return A new array with the contents of the input array.
+	 */
 	private int[][] copyArray(int[][] array) {
 		int[][] new_array = new int[array.length][array[0].length];
 		for (int i = 0; i < array.length; i++) {
@@ -150,6 +164,14 @@ public class SlidingGame implements Configuration {
 
 	}
 
+	/**
+	 * Flattens a 2 dimensional array. Returns a 1 dimensional representation of
+	 * the input array.
+	 * 
+	 * @param array
+	 *            A 2 dimensional array to flatten.
+	 * @return A new
+	 */
 	private int[] flatten(int[][] array) {
 		int[] new_array = new int[array.length * array.length];
 		for (int i = 0; i < array.length * array.length; i++) {
@@ -157,19 +179,29 @@ public class SlidingGame implements Configuration {
 		}
 		return new_array;
 	}
-	
+
+	/**
+	 * Calculates the manhattan distance for each piece of the puzzle to their
+	 * desired position. It stores the result in a class variable
+	 * manhattandistance.
+	 */
 	public void calcManhattan() {
-		for (int i =0; i < board.length; i++) {
-			for (int j = 0; j < board[0].length; j++){
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
 				int value = board[i][j];
-				manhattandistance += ((N % value) - i) + (N / value - j);
+				manhattandistance += (Math.abs((N % value) - i) + Math.abs(N
+						/ value - j));
 			}
 		}
 	}
 
 	@Override
 	public int compareTo(Configuration g) {
-		return getManhattanDistance() + g.getManhattanDistance();
+		if (!(g instanceof SlidingGame)) {
+			return -1;
+		}
+		SlidingGame gs = (SlidingGame) g;
+		return getManhattanDistance() - gs.getManhattanDistance();
 	}
 
 	@Override
@@ -177,15 +209,18 @@ public class SlidingGame implements Configuration {
 		int value = 0;
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				value += board[i][j] * ((int) Math.pow(31, i + j*N));
+				value += board[i][j] * ((int) Math.pow(31, i + j * N));
 			}
 		}
 
 		return value;
 	}
-	
+
+	/**
+	 * Returns the Manhattan Distance, calculated by calcManhattan.
+	 * @return manhattan distance
+	 */
 	public int getManhattanDistance() {
 		return manhattandistance;
 	}
-
 }

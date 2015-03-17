@@ -20,8 +20,4 @@ public interface Configuration extends Comparable<Configuration> {
      * For marking final / solution configurations.
      */
 	public boolean isSolution ();
-	
-	public int getManhattanDistance() ;
-	
-	public void calcManhattan() ;
 }
