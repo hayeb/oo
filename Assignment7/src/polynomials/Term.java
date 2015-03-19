@@ -1,4 +1,4 @@
-package assignment7;
+package polynomials;
 
 import java.util.Scanner;
 
@@ -62,7 +62,16 @@ public class Term {
      * @require exponent == t.exponent
      */
     public void plus(Term t) {
-        coefficient += t.coefficient;
+    		coefficient += t.coefficient;
+    }
+    
+    /**
+     * 
+     * @param t the term which is substracted from this
+     * @require exponent == t.exponent
+     */
+    public void minus(Term t){
+    	coefficient -= t.coefficient;
     }
 
     /**

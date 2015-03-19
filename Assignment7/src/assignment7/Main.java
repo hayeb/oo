@@ -1,5 +1,7 @@
 package assignment7;
 
+import polynomials.Polynomial;
+
 
 /**
  *
