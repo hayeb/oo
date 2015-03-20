@@ -3,7 +3,6 @@ package polynomials;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -107,7 +106,7 @@ public class Polynomial {
 		for(Term a: terms){
 			for(Term b:p.terms){
 				if (a.getExp() == b.getExp()) {
-					a.setCoefficient(a.getCoef() + b.getCoef());
+					a.plus(b);
 					b.setCoefficient(0);
 				}
 			}
@@ -158,8 +157,8 @@ public class Polynomial {
 		ArrayList<Term> newterms = new ArrayList<Term>();
 		for(Term a: terms){
 			for (Term b : p.terms){
-				Term c = new Term(a.getCoef() * b.getCoef(), a.getExp()
-						+ b.getExp());
+				Term c = new Term(a);
+				c.times(b);
 				newterms.add(c);
 			}
 		}
@@ -174,9 +173,7 @@ public class Polynomial {
 	 * @param p
 	 */
 	public void minus(Polynomial p) {
-		ListIterator<Term> it2 = p.terms.listIterator();
-		while (it2.hasNext()) {
-			Term t = it2.next();
+		for( Term t: p.terms){
 			t.setCoefficient(-1 * t.getCoef());
 		}
 		plus(p);
@@ -190,10 +187,8 @@ public class Polynomial {
 	 * @return The result of the polynomial with input variable x.
 	 */
 	public int apply(int x) {
-		ListIterator<Term> it = terms.listIterator();
 		int result = 0;
-		while (it.hasNext()) {
-			Term s = it.next();
+		for(Term s: terms){
 			result += s.getCoef() * Math.pow(x, s.getExp());
 		}
 		return result;
