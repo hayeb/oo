@@ -11,7 +11,8 @@ import java.util.Scanner;
 /**
  * A skeleton class for representing Polynomials
  *
- * @author Sjaak Smetsers
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
  * @date 10-03-2015
  */
 public class Polynomial {
@@ -99,48 +100,23 @@ public class Polynomial {
 	/**
 	 * Adds polynomial p to this polynomial, and stores the result in this
 	 * object.
-	 * 
+	 * We use a enhanced for-loop for this uses iterators in its underneath structure.
 	 * @param p
 	 */
 	public void plus(Polynomial p) {
-		Iterator<Term> it1 = terms.iterator(); // P1
-
-		ArrayList<Term> toAdd = new ArrayList<Term>();
-		ArrayList<Term> toRemove = new ArrayList<Term>();
-		/*
-		 * Go through the terms list, and add all terms with the same exponent
-		 * to the toAdd list. If the term is not added, no term in the other
-		 * list is found with the same exponent.
-		 */
-		while (it1.hasNext()) {
-			Term a = it1.next();
-			Iterator<Term> it2 = p.terms.iterator(); // P2
-			boolean added = false;
-			while (it2.hasNext()) {
-				Term b = it2.next();
+		for(Term a: terms){
+			for(Term b:p.terms){
 				if (a.getExp() == b.getExp()) {
-					Term c = new Term(a.getCoef() + b.getCoef(), a.getExp());
-					toAdd.add(c);
-					added = true;
-					toRemove.add(a);
-					toRemove.add(b);
-				}
-			}
-			if (!added) {
-				toAdd.add(new Term(a.getCoef(), a.getExp()));
-			}
-		}
-
-		for (Term t : terms) {
-			for (Term s : p.terms) {
-				if (s.getExp() != t.getExp() && !toAdd.contains(s)) {
-					toAdd.add(new Term(s.getCoef(), s.getExp()));
+					a.setCoefficient(a.getCoef() + b.getCoef());
+					b.setCoefficient(0);
 				}
 			}
 		}
-		terms.clear();
-		terms.addAll(toAdd);
-		terms.removeAll(toRemove);
+		for (Term c : p.terms) {
+			if(c.getCoef() != 0) {
+				terms.add(c);
+			}
+		}
 		cleanZero();
 	}
 
@@ -174,18 +150,14 @@ public class Polynomial {
 
 	/**
 	 * Saves the outcome of multiplying polynomial p with this polynomial.
-	 * 
+	 * We use a enhanced for-loop for this uses iterators in its underneath structure.
 	 * @param p
 	 *            A polynomial p.
 	 */
 	public void times(Polynomial p) {
-		Iterator<Term> it1 = terms.iterator();
 		ArrayList<Term> newterms = new ArrayList<Term>();
-		while (it1.hasNext()) {
-			Term a = it1.next();
-			Iterator<Term> it2 = p.terms.iterator();
-			while (it2.hasNext()) {
-				Term b = it2.next();
+		for(Term a: terms){
+			for (Term b : p.terms){
 				Term c = new Term(a.getCoef() * b.getCoef(), a.getExp()
 						+ b.getExp());
 				newterms.add(c);
@@ -197,8 +169,17 @@ public class Polynomial {
 		cleanZero();
 	}
 
+	/**
+	 * Substracts polynomial p from this polynomial.
+	 * @param p
+	 */
 	public void minus(Polynomial p) {
-
+		ListIterator<Term> it2 = p.terms.listIterator();
+		while (it2.hasNext()) {
+			Term t = it2.next();
+			t.setCoefficient(-1 * t.getCoef());
+		}
+		plus(p);
 	}
 
 	/**

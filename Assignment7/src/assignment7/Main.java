@@ -4,7 +4,8 @@ import polynomials.Polynomial;
 
 
 /**
- *
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
  * @author Sjaak Smetsers
  */
 public class Main {

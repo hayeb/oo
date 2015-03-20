@@ -6,6 +6,8 @@ import java.util.Scanner;
  * For representing terms in a polynomial.
  *
  * @author Sjaak Smetsers
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
  * @version 1.0
  * @date 15-02-2012
  */
@@ -132,5 +134,9 @@ public class Term {
         } else {
             return null;
         }
+    }
+    
+    public void setCoefficient(double c) {
+    	this.coefficient = c ;
     }
 }

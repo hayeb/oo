@@ -6,6 +6,12 @@ import org.junit.Test;
 
 import polynomials.Polynomial;
 
+/**
+ * A test class for the Polynomial class. Tests the toString, plus, minus, times and apply methods.
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
+ *
+ */
 public class PolynomialTest {
 
 	@Test
@@ -29,11 +35,24 @@ public class PolynomialTest {
         p2 = new Polynomial("1 0 1 2 1 4");
         p1.plus(p2);
         assertEquals("p1 plus p2 2:", "1.000000x^6 + 3.000000x^4 + 2.000000x^3 + 1.000000x^2 + 1.000000", p1.toString());
+        
+
+        p1 = new Polynomial("5 2");
+		p2 = new Polynomial("-5 2");
+		p1.plus(p2);
+		assertEquals("p1 plus p2 (add to 0)", "", p1.toString());
 	}
 
 	@Test
 	public void testMinus() {
-		
+//		Polynomial p1 = new Polynomial("5 2");
+//		Polynomial p2 = new Polynomial("1 2 -5 4 1 1 -3 0");
+//		p1.minus(p2);
+//		assertEquals("negative p2", "5.000000x^4 -1.000000x^2 -1.000000x + 3.000000", p2.toString());
+		Polynomial p1 = new Polynomial("5 2");
+		Polynomial p2 = new Polynomial("5 2");
+		p1.minus(p2);
+		assertEquals("p1 minus p2", "", p1.toString());
 	}
 
 	@Test
