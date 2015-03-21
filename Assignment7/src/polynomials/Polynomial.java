@@ -98,13 +98,14 @@ public class Polynomial {
 
 	/**
 	 * Adds polynomial p to this polynomial, and stores the result in this
-	 * object.
-	 * We use a enhanced for-loop for this uses iterators in its underneath structure.
+	 * object. We use a enhanced for-loop for this uses iterators in its
+	 * underneath structure.
+	 * 
 	 * @param p
 	 */
 	public void plus(Polynomial p) {
-		for(Term a: terms){
-			for(Term b:p.terms){
+		for (Term a : terms) {
+			for (Term b : p.terms) {
 				if (a.getExp() == b.getExp()) {
 					a.plus(b);
 					b.setCoefficient(0);
@@ -112,7 +113,7 @@ public class Polynomial {
 			}
 		}
 		for (Term c : p.terms) {
-			if(c.getCoef() != 0) {
+			if (c.getCoef() != 0) {
 				terms.add(c);
 			}
 		}
@@ -148,15 +149,17 @@ public class Polynomial {
 	}
 
 	/**
-	 * Saves the outcome of multiplying polynomial p with this polynomial.
-	 * We use a enhanced for-loop for this uses iterators in its underneath structure.
+	 * Saves the outcome of multiplying polynomial p with this polynomial. We
+	 * use a enhanced for-loop for this uses iterators in its underneath
+	 * structure.
+	 * 
 	 * @param p
 	 *            A polynomial p.
 	 */
 	public void times(Polynomial p) {
 		ArrayList<Term> newterms = new ArrayList<Term>();
-		for(Term a: terms){
-			for (Term b : p.terms){
+		for (Term a : terms) {
+			for (Term b : p.terms) {
 				Term c = new Term(a);
 				c.times(b);
 				newterms.add(c);
@@ -170,10 +173,11 @@ public class Polynomial {
 
 	/**
 	 * Substracts polynomial p from this polynomial.
+	 * 
 	 * @param p
 	 */
 	public void minus(Polynomial p) {
-		for( Term t: p.terms){
+		for (Term t : p.terms) {
 			t.setCoefficient(-1 * t.getCoef());
 		}
 		plus(p);
@@ -188,7 +192,7 @@ public class Polynomial {
 	 */
 	public int apply(int x) {
 		int result = 0;
-		for(Term s: terms){
+		for (Term s : terms) {
 			result += s.getCoef() * Math.pow(x, s.getExp());
 		}
 		return result;
