@@ -71,7 +71,7 @@ public class QTree {
 			} else if (next_bit == 49) {
 				return new WhiteLeaf();
 			}
-		} // The net bit is 1
+		} // The next bit is 1
 		else if (first == 49) {
 			GreyNode temp = new GreyNode();
 			for (int i = 0; i < 4; i++) {
