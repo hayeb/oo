@@ -2,18 +2,35 @@ package assignment9;
 
 import java.util.Scanner;
 
+/**
+ * 
+ * Class to control our webshop
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class Controller {
 
 	private WebShopModel ws;
 	private TextUserInterface ui;
 	private Scanner scan;
 
+	/**
+	 * Initializes this controller with a WebShopModel and a TextUserInterface.
+	 * Also initializes a new scanner form std::in.
+	 * 
+	 * @param ws
+	 * @param ui
+	 */
 	public Controller(WebShopModel ws, TextUserInterface ui) {
 		this.ws = ws;
 		this.ui = ui;
 		scan = new Scanner(System.in);
 	}
 
+	/**
+	 * Shows a welcome message and asks if the user is familiar with our shop.
+	 */
 	public void welcome() {
 		ui.showWelcomeMessage();
 		boolean done = false;
@@ -31,8 +48,10 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Function to register a new user according to a name and an ID.
+	 */
 	public void registerUser() {
-		
 		boolean done = false;
 		while (!done) {
 			ui.requestRegistered();
@@ -41,6 +60,7 @@ public class Controller {
 			if (id > 0 && !name.isEmpty()) {
 				done = true;
 				ws.addCustomer(id, name);
+				ws.setCurrentCustomer(id);
 				ui.userAdded();
 			} else {
 				System.out.println("Please try again.");
@@ -71,6 +91,11 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Shows the main menu for the program.
+	 * 
+	 * @return
+	 */
 	public boolean chooseMenu() {
 		ui.askWhichOperation();
 		boolean done = false;
@@ -106,20 +131,24 @@ public class Controller {
 	 * add more to the basket. 5. If user agrees, show the total cost of the
 	 * basket and proceed to checkout. Else, go repeat steps 1 - 4.
 	 */
-	public void buy() { boolean done1 = false;
+	public void buy() {
+		boolean done1 = false;
 		while (!done1) {
 			ui.showProducts(ws.showProducts());
-			ui.getProductNumbers();
+			if (!ws.isEmpty()) {
+				ui.getProductNumbers();
+			}
 			int number = scan.nextInt();
 			scan.nextLine();
 			if (number > 0) {
 				Product p = ws.getProduct(number - 1);
 				if (p != null) {
-					p.setReserved(true);
 					Customer c = ws.getCurrentCustomer();
 					c.addToBasket(p);
-					done1 = true;
 					ui.showProductsBasket(c.getBasketString());
+					p.setReserved(true);
+					handleBasket();
+					done1 = true;
 				} else {
 					ui.buyInputError();
 				}
@@ -128,6 +157,39 @@ public class Controller {
 				done1 = true;
 			}
 		}
+	}
+
+	/**
+	 * Handles the current user's basket: Asks what the user would like to do,
+	 * and either finishes the transaction or edits the basket.
+	 */
+	public void handleBasket() {
+		Customer c = ws.getCurrentCustomer();
+		while (true) {
+			ui.basketOption();
+			int i = scan.nextInt();
+			scan.nextLine();
+			if (i == 1) {
+				transaction();
+				return;
+			} else if (i == 2) {
+				ui.removeWhich();
+				int r = scan.nextInt();
+				scan.nextLine();
+				c.removeFromBasket(r - 1);
+			} else
+				return;
+		}
+	}
+	
+	
+	/**
+	 * Function to let the user "pay". No real practical use yet.
+	 */
+	public void transaction() {
+
+		ui.finalTransaction(ws.getCurrentCustomer().getBasketString());
+		ws.transaction();
 	}
 
 	/**
@@ -163,6 +225,9 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Main function to run the shop.
+	 */
 	public void run() {
 		welcome();
 		boolean done = false;

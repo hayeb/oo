@@ -3,6 +3,13 @@ package assignment9;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class to keep a list of customers.
+ * 
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class CustomerList implements Serializable {
 	/**
 	 * 
@@ -29,9 +36,11 @@ public class CustomerList implements Serializable {
 	public void addCustomer(int id, String name) {
 		customers.add(new Customer(id, name));
 	}
-	
+
 	/**
-	 * Returns the customer with specified ID. If the customer does not exist, return null.
+	 * Returns the customer with specified ID. If the customer does not exist,
+	 * return null.
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -51,7 +60,9 @@ public class CustomerList implements Serializable {
 	 * @return
 	 */
 	public boolean exists(int id) {
-		if (customers.isEmpty()) { return false;}
+		if (customers.isEmpty()) {
+			return false;
+		}
 		for (Customer c : customers) {
 			if (c.getID() == id) {
 				return true;

@@ -2,6 +2,14 @@ package assignment9;
 
 import java.io.Serializable;
 
+/**
+ * represents a product in the webshop. Has a reserved state: if the product is
+ * reserved, it will not be shown in the product list.
+ * 
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class Product implements Serializable {
 	/**
 	 * 
@@ -33,18 +41,22 @@ public class Product implements Serializable {
 	public void setReserved(boolean state) {
 		this.reserved = state;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
-	
+
+	/**
+	 * Returns a string representation of the product.
+	 */
 	@Override
 	public String toString() {
-		return "Name: " + this.name + "\tCost: " + this.cost + ".\n";
+		return "Name: " + this.name + "\tCost: \u20ac" + this.cost + ".\n";
 	}
-	
+
 	/**
-	 * For all we care about, products with the same prize and name are the same.
+	 * For all we care about, products with the same prize and name are the
+	 * same.
 	 */
 	@Override
 	public boolean equals(Object o) {
