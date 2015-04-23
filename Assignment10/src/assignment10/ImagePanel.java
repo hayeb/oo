@@ -10,23 +10,33 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- * @author haye
+ * A panel intended to hold a single image.
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
  *
  */
 public class ImagePanel extends JPanel {
-    private Image image;
+    private ImageIcon image;
 
+    /**
+     * Initialize this panel with a specific image
+     * @param imageicon
+     */
     public ImagePanel(ImageIcon imageicon) {
-	image = imageicon.getImage();
+	image = imageicon;
     }
-    
+
+    /**
+     * Set the image to a certain image.
+     * @param imageicon
+     */
     public void setImage(ImageIcon imageicon) {
-	image = imageicon.getImage();
+	image = imageicon;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
 	super.paintComponent(g);
-	g.drawImage(image, 0, 0, null);
+	image.paintIcon(this, g, 0, 0);
     }
 }

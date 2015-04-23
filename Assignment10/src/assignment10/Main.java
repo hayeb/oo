@@ -1,6 +1,5 @@
 package assignment10;
 
-
 /**
  * 
  */
@@ -12,17 +11,14 @@ package assignment10;
 public class Main {
 
     /**
+     * Starts the WeatherApp.
+     * 
      * @param args
      * 
      */
     public static void main(String[] args) {
-	WeatherAppController wac = new WeatherAppController() ;	
-	WeatherAppModel model = new WeatherAppModel();
-	WeatherDataReader xmlreader = new WeatherDataReader();
-	model.addWeatherStations(xmlreader.read("http://xml.buienradar.nl/"));
-	WeatherAppGUI gui = new WeatherAppGUI("WeatherApp: Weer een weer app", model.getWeatherStations(), model);
-	gui.setVisible(true);
-	wac.register(gui, model);
+	new WeatherApp();
+
     }
 
 }

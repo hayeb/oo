@@ -32,21 +32,7 @@ public class WeatherAppGUI extends JFrame {
     private ImagePanel imagepanel;
 
     /**
-     * @throws HeadlessException
-     */
-    public WeatherAppGUI() throws HeadlessException {
-	
-    }
-
-    /**
-     * @param gc
-     */
-    public WeatherAppGUI(GraphicsConfiguration gc) {
-	super(gc);
-	
-    }
-
-    /**
+     * Creates a new window for the weather app.
      * @param title
      * @throws HeadlessException
      */
@@ -54,18 +40,22 @@ public class WeatherAppGUI extends JFrame {
 	    ArrayList<WeatherStation> weatherStations, WeatherAppModel model)
 	    throws HeadlessException {
 	super(title);
-	setSize(675, 400);
+	setSize(550, 200);
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setLayout(new GridBagLayout());
 	getContentPane().setBackground(Color.GRAY);
-	dropoutMenu(weatherStations, model);
-	textArea();
-	refresh();
-	panel();
+	createDropdownList(weatherStations, model);
+	createTextArea();
+	createrRefreshButton(model);
+	createImagePanel();
     }
 
-    /* Create the Combo Box to choose a weather station */
-    public void dropoutMenu(ArrayList<WeatherStation> weatherStations,
+    /**
+     * Creates the dropdown list to display the possible weather stations.
+     * @param weatherStations
+     * @param model
+     */
+    public void createDropdownList(ArrayList<WeatherStation> weatherStations,
 	    WeatherAppModel model) {
 	weathercombobox = new JComboBox<WeatherStation>();
 	
@@ -88,11 +78,11 @@ public class WeatherAppGUI extends JFrame {
      * Create the Text area to display the weather station information. Also set
      * some initial text.
      */
-    public void textArea() {
+    public void createTextArea() {
 	textarea = new JTextArea();
 	textarea.setText("Hello there! Please select a weather station from the dropdown list.\n");
 	textarea.setBackground(Color.WHITE);
-	textarea.setPreferredSize(new Dimension(550, 300));
+	textarea.setPreferredSize(new Dimension(450, 65));
 	GridBagConstraints gbc = new GridBagConstraints();
 	gbc.anchor = GridBagConstraints.CENTER;
 	gbc.gridx = 0;
@@ -102,10 +92,12 @@ public class WeatherAppGUI extends JFrame {
 	add(textarea, gbc);
     }
 
-    /* Create the button to refresh all information */
-    public void refresh() {
+    /**
+     * Adds the refresh button to the interface.
+     */
+    public void createrRefreshButton(WeatherAppModel model) {
 	JButton refreshbutton = new JButton("Refresh");
-	refreshbutton.addActionListener(new RefreshActionListener());
+	refreshbutton.addActionListener(new RefreshActionListener(model, this));
 	GridBagConstraints gbc = new GridBagConstraints();
 	gbc.anchor = GridBagConstraints.CENTER;
 	gbc.gridx = 1;
@@ -114,10 +106,12 @@ public class WeatherAppGUI extends JFrame {
 	add(refreshbutton, gbc);
     }
 
-    /* Create the panel to display the image. */
-    public void panel() {
+    /**
+     * Creates the panel to hold the image of a weather station. 
+     */
+    public void createImagePanel() {
 	imagepanel = new ImagePanel(new ImageIcon());
-	imagepanel.setPreferredSize(new Dimension(40, 40));
+	imagepanel.setPreferredSize(new Dimension(37, 37));
 	GridBagConstraints gbc = new GridBagConstraints();
 	gbc.anchor = GridBagConstraints.NORTHWEST;
 	gbc.gridx = 2;
@@ -126,27 +120,17 @@ public class WeatherAppGUI extends JFrame {
 	add(imagepanel, gbc);
     }
 
+    /**
+     * Updates the textfield and image panel to represent the currently selected weather station. 
+     * @param weatherstation
+     */
     public void update(WeatherStation weatherstation) {
-	textarea.setText("Name: " + weatherstation.getName()
-		+ "\nTemperature (c): " + weatherstation.getTemp()
-		+ "\nWind Direction: " + weatherstation.getWindDirection()
-		+ "\nWind Speed: " + weatherstation.getWindspeed());
+	textarea.setText(" Name: " + weatherstation.getName()
+		+ "\n Temperature (c): " + weatherstation.getTemp()
+		+ "\n Wind Direction: " + weatherstation.getWindDirection()
+		+ "\n Wind Speed: " + weatherstation.getWindspeed());
 	ImageIcon im = weatherstation.getImage();
 	imagepanel.setImage(im);
-	imagepanel.repaint();
+	repaint();
     }
-
-    public JComboBox<WeatherStation> getWeatherComboBox() {
-	return weathercombobox;
-    }
-
-    /**
-     * @param title
-     * @param gc
-     */
-    public WeatherAppGUI(String title, GraphicsConfiguration gc) {
-	super(title, gc);
-	
-    }
-
 }

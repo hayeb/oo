@@ -3,6 +3,9 @@ package assignment10;
 /**
  * 
  */
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -21,7 +24,8 @@ public class WeatherStation {
     private ImageIcon weathericon;
 
     /**
-     * 
+     * Initializes a weather station with a name, a temperature, windspeed,
+     * direction and a url to the corresponding image.
      */
     public WeatherStation(String name, String temp, String windspeed,
 	    String winddirection, String imageurl) {
@@ -39,7 +43,7 @@ public class WeatherStation {
     public void setName(String name) {
 	this.name = name;
     }
-    
+
     public String getName() {
 	return name;
     }
@@ -47,7 +51,7 @@ public class WeatherStation {
     public void setTemp(String temp) {
 	this.temp = temp;
     }
-    
+
     public String getTemp() {
 	return temp;
     }
@@ -55,7 +59,7 @@ public class WeatherStation {
     public void setWindspeed(String windspeed) {
 	this.windspeed = windspeed;
     }
-    
+
     public String getWindspeed() {
 	return windspeed;
     }
@@ -63,15 +67,16 @@ public class WeatherStation {
     public void setWindDirection(String direction) {
 	this.winddirection = direction;
     }
-    
+
     public String getWindDirection() {
 	return winddirection;
     }
 
-    public void setIcon(String url) {
+    public void setIcon(String path) throws MalformedURLException {
+	URL url = new URL(path);
 	weathericon = new ImageIcon(url);
     }
-    
+
     public ImageIcon getImage() {
 	return this.weathericon;
     }
