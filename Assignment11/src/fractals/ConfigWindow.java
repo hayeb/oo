@@ -68,10 +68,10 @@ public class ConfigWindow extends JFrame {
 		scaleformat.setGroupingUsed(false);
 
 		xtextfield = new JFormattedTextField(coordinateformat);
-		xtextfield.setText("0");
+		xtextfield.setText("250");
 		xtextfield.setColumns(10);
 		ytextfield = new JFormattedTextField(coordinateformat);
-		ytextfield.setText("0");
+		ytextfield.setText("250");
 		ytextfield.setColumns(10);
 		scaletextfield = new JFormattedTextField(scaleformat);
 		scaletextfield.setText("1");

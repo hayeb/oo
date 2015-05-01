@@ -1,6 +1,7 @@
 package fractals;
 
 import java.awt.Insets;
+
 import javax.swing.JFrame;
 
 /**
@@ -19,6 +20,7 @@ public class MainWindow {
 
 	// The grid panel
 	private GridView grid;
+	private FractalGlassPane glasspane;
 	JFrame mainFrame;
 
 	public MainWindow() {
@@ -33,21 +35,22 @@ public class MainWindow {
 
 		Insets insets = mainFrame.getInsets();
 		grid = new GridView(500, 500);
+		glasspane = new FractalGlassPane();
+		
 		/*
 		grid = new GridView(WIDTH - insets.left - insets.right, HEIGHT
 				- insets.top - insets.bottom);
 		*/
-
+		/*
+		 * TODO: Draw on glass pane.
+		 */
+		mainFrame.setGlassPane(glasspane);;
 		mainFrame.add(grid);
 		mainFrame.pack();
 	}
 	
-	public void repaint() {
-		this.repaint();
-	}
-	
 	public void registerFiller(GridFiller filler) {
-		MouseHandler mh = new MouseHandler(filler);
+		MouseHandler mh = new MouseHandler(filler, mainFrame, glasspane);
 		mainFrame.addMouseListener(mh);
 		mainFrame.addMouseMotionListener(mh);
 		

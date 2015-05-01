@@ -67,44 +67,44 @@ public class GridFiller {
 				double y = scale(grid.getHeight(), j, scale_min_y, scale_max_y);
 				int mandelbrot = calcMandelbrot(x, y);
 				grid.setPixel(i, j, colorTable.getColor(mandelbrot));
-				
-				
-				
-//				if (mandelbrot == Integer.MAX_VALUE || mandelbrot % 2 == 0) {
-//					int[] array = { 0, 0, 0 };
-//					grid.setPixel(i, j, array);
-//				} else {
-//					int[] array = { 255, 255, 255 };
-//					grid.setPixel(i, j, array);
-//				}
 			}
 		}
 	}
 
 	public void setCenter(double x, double y) {
-		double cent_x_dist = (grid.getWidth()/2) - x;
-		double cent_y_dist = (grid.getHeight()/2) - y;
-		double cent_x_dist_scaled = cent_x_dist / grid.getWidth() * (scale_max_x-scale_min_x);
-		double cent_y_dist_scaled = cent_y_dist / grid.getHeight() * (scale_max_y-scale_min_y);
+		double cent_x_dist = (grid.getWidth() / 2) - x;
+		double cent_y_dist = (grid.getHeight() / 2) - y;
+		double cent_x_dist_scaled = cent_x_dist / grid.getWidth()
+				* (scale_max_x - scale_min_x);
+		double cent_y_dist_scaled = cent_y_dist / grid.getHeight()
+				* (scale_max_y - scale_min_y);
 		scale_min_x -= cent_x_dist_scaled;
 		scale_min_y -= cent_y_dist_scaled;
 		scale_max_x -= cent_x_dist_scaled;
 		scale_max_y -= cent_y_dist_scaled;
-
 	}
-	
+
+	public void setScaleRect(double x, double y) {
+		double x_dist = Math.abs(scale_max_x - scale_min_x);
+		double y_dist = Math.abs(scale_max_y - scale_min_y);
+		
+		scale_min_x = -0.5*x_dist*x*x_dist/scale_min_x;
+		scale_min_y = -0.5*y_dist*y*y_dist/scale_min_y;
+		scale_max_x = 0.5*x_dist*x*x_dist/scale_max_x;
+		scale_max_y = 0.5*y_dist*y*y_dist/scale_max_y;
+	}
+
 	public void setScale(double scale) {
 		scale_min_x = scale_min_x / scale;
-		scale_max_x = scale_max_x/ scale;
-		scale_min_y = scale_min_y/ scale;
+		scale_max_x = scale_max_x / scale;
+		scale_min_y = scale_min_y / scale;
 		scale_max_y = scale_max_y / scale;
 	}
 
 	public void setScaleMouse(double scale) {
 		double x_dist = Math.abs(scale_max_x - scale_min_x);
 		double y_dist = Math.abs(scale_max_y - scale_min_y);
-		
-		
+
 		scale_min_x += 0.5 * x_dist / scale;
 		scale_max_x -= 0.5 * x_dist / scale;
 		scale_min_y += 0.5 * y_dist / scale;
@@ -112,12 +112,12 @@ public class GridFiller {
 	}
 
 	public void resetScale() {
-		scale_max_x = 2.5;
-		scale_max_y = 2.5;
-		scale_min_x = -2.5;
-		scale_min_y = -2.5;
+		scale_max_x = defaultSize;
+		scale_max_y = defaultSize;
+		scale_min_x = -defaultSize;
+		scale_min_y = -defaultSize;
 	}
-	
+
 	public double getCurrentScale() {
 		return scale_max_x - scale_min_x;
 	}

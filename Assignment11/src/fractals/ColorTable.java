@@ -42,7 +42,15 @@ public class ColorTable {
         this.tableSize = tableSize;
         this.rgbColors = new int[tableSize][3];
 
-        randomColorSet();
+        customColorSet();
+    }
+    
+    public void customColorSet() {
+    	for (int a = 0; a < tableSize; a++) {
+    		for (int c = 0; c < 3; c++) {
+    			rgbColors[a][c] = (41 + 41* (a + c)) % 255;
+    		}
+    	}
     }
 
     /**
