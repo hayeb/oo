@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+org.eclim.java.import.exclude=["^com.sun..*","^sunw?..*"]
+org.eclim.java.run.mainclass=FileFinderTest
+org.eclim.user.email=haye.bohm@gmail.com
+org.eclim.user.name="Haye B\u00F6hm"
