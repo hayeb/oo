@@ -1,5 +1,10 @@
 package assignment13a;
-
+/**
+ * Class to test the dice game.a
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s5373510
+ *
+ */
 public class GameTest {
 
         private final Dice dice;

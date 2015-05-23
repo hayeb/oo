@@ -2,6 +2,12 @@ package assignment13a;
 
 import java.util.Random;
 
+/**
+ * A dice class which takes care of threading.
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s5373510
+ *
+ */
 public class Dice {
 	private int pips;
 	private final Random rand;

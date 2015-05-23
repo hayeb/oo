@@ -1,5 +1,13 @@
 package assignment13b;
 
+/**
+ * A landlubber lookin' for a stiff drink, yarr! Represents a man looking for a
+ * drink.
+ * 
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s5373510
+ *
+ */
 public class ParchedMan implements Runnable {
 	private final int id;
 	private static final int DRINK_TIME_PER_CC = 5;
@@ -18,7 +26,7 @@ public class ParchedMan implements Runnable {
 	public void drawAndDrink() {
 		while (!satisfied()) {
 			Glass g = bar.checkAndGetGlass();
-			if (g != null) {				
+			if (g != null) {
 				g = tap.fillUp(g);
 				try {
 					System.out.println("Man "
