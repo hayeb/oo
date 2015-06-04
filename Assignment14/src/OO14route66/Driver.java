@@ -79,7 +79,7 @@ public class Driver implements Runnable {
 			getClosestCarReversed(c);
 		}
 		//System.out.println("Found car " + closest.getNumber()
-		//		+ "as closest for car" + c.getNumber() + "\n");
+		//		+ "as closest for car" + c.getNumber() + "\n"); 
 	}
 
 	private synchronized void getClosestCarReversed(Car c) {
