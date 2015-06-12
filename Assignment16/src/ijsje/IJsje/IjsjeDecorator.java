@@ -1,5 +1,11 @@
 package ijsje.IJsje;
 
+/**
+ * A decorator for the ijsje class.
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public abstract class IjsjeDecorator extends Ijsje {
 
 	protected final Ijsje ijsje;

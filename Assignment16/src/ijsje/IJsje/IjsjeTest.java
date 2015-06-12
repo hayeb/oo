@@ -3,6 +3,12 @@ package ijsje.IJsje;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Tests the ijsje class and its sub classes.
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class IjsjeTest {
 	
 	public static void main(String[] args) {

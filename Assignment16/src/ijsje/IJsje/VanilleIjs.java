@@ -1,5 +1,11 @@
 package ijsje.IJsje;
 
+/**
+ * Represents an ijsje made of vanille.
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class VanilleIjs extends Ijsje {
 
 	private String beschrijving;
