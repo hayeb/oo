@@ -2,6 +2,12 @@ package winkelen;
 
 import java.util.Scanner;
 
+/**
+ * An iDeal implementation of the betaalmethode interface.
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class iDeal implements Betaalmethode {
 
 	private String bankname;
@@ -9,7 +15,7 @@ public class iDeal implements Betaalmethode {
 	private int pin;
 
 	@Override
-	public boolean betaal() {
+	public boolean betaal(double bedrag) {
 		System.out.println("Starting external payment method..");
 		System.err.println("Method not yet implemented.");
 		return false;

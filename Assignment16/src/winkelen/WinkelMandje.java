@@ -2,6 +2,12 @@ package winkelen;
 
 import java.util.ArrayList;
 
+/**
+ * Class modeling a Winkelmandje. Can add artikelen, remove artikelen and calculate the total price.
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
+ *
+ */
 public class WinkelMandje {
 
 	private ArrayList<Artikel> artikelLijst;
@@ -32,6 +38,10 @@ public class WinkelMandje {
 		artikelLijst.remove(artikel);
 	}
 
+	/**
+	 * calculates the total price, including the shipping costs.
+	 * @return
+	 */
 	public double totaalPrijs() {
 		double tp = 0.0;
 		ArrayList<Double> vk = new ArrayList<Double>();
@@ -48,12 +58,21 @@ public class WinkelMandje {
 		return tp;
 	}
 
+	/**
+	 * Stats the selected payment method.
+	 * @return
+	 */
 	public boolean betaal() {
 		betaalMethode.invoerGegevens();
-		return betaalMethode.betaal();
+		return betaalMethode.betaal(totaalPrijs());
 
 	}
-
+	
+	
+	/**
+	 * Changes payments method. Accepts "P" (PayPal), "C" (CreditCard), "I" (iDeal). 
+	 * @param be
+	 */
 	public void veranderBetaalwijze(String be) {
 		switch (be) {
 		case "P":

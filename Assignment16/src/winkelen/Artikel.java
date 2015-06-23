@@ -1,16 +1,19 @@
 package winkelen;
 
-public class Artikel {
+/**
+ * Abstract class representing a product/artikel.
+ * @author Haye Bohm - s4290402
+ * @author Ylja Remmits - s4373510
+ *
+ */
+public abstract class Artikel {
 
 	private String naam;
 	private double prijs;
-	private double verzendkosten;
 
-
-	public Artikel(String naam, double prijs, double verzendkosten){
+	public Artikel(String naam, double prijs){
 		this.naam = naam;
 		this.prijs = prijs;
-		this.verzendkosten = verzendkosten;
 	}
 
 
@@ -24,9 +27,7 @@ public class Artikel {
 	}
 
 
-	public double getVerzendkosten() {
-		return verzendkosten;
-	}
+	public abstract double getVerzendkosten() ;
 	
 	
 

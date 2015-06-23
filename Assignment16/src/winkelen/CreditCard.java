@@ -5,6 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * A creditCard implementation of the Betaalmethode interface.
+ * @author Haye Bohm - 4290402
+ * @author Ylja Remmits - 4373510
+ *
+ */
 public class CreditCard implements Betaalmethode {
 
 	private int cnumber = -1;
@@ -12,7 +18,7 @@ public class CreditCard implements Betaalmethode {
 	private Date date;
 
 	@Override
-	public boolean betaal() {
+	public boolean betaal(double bedrag) {
 		System.out.println("Starting external payment method..");
 		System.err.println("Method not yet implemented.");
 		return false;
