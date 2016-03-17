@@ -223,12 +223,12 @@ public class Loipe implements InfoLoipe {
 		return stepnumber;
 	}
 
-	@Override
+	
 	public int getX() {
 		return this.width;
 	}
 
-	@Override
+	
 	public int getY() {
 		return this.height;
 	}
